@@ -27,7 +27,7 @@ const SignInComponent = (): ReactElement => {
 
         <div>
           <p className="h6">Contraseña</p>
-          <input className="form-control" type="password" />
+          <input className="form-control form-control-lg" type="password" />
         </div>
 
         <button

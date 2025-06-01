@@ -1,0 +1,49 @@
+@use '../../styles';
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 15px 15px 15px;
+    
+    &__title {
+        color: styles.$indigo;
+    }
+
+    &__user{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        &--name, &--type {
+            margin: 0;
+            text-align: right;
+        }
+    }
+}
+
+.line {
+    margin: 0;
+    background-color: rgb(69, 69, 69);
+    height: 2px;
+}
+
+.progress{
+    height: 100vh;
+    border-radius: 0;
+
+    &__menu {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 320px;
+        color: styles.$white;
+        border-radius: 0;
+        background-color: styles.$indigo;
+    }
+
+    &__outlet {
+        background-color: styles.$white;
+        padding: 20px;
+        width: 100%;
+    }
+}
