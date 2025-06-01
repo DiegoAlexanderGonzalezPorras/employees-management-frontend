@@ -1,6 +1,9 @@
+$indigo: #6610f2;
+$white: #ffffff;
+
 @use '/node_modules/bootstrap/scss/bootstrap' with (
     $theme-colors: (
-        "primary": #6610f2
+        "primary": $indigo
     )
 );
 
