@@ -1,0 +1,25 @@
+@use '../../variables';
+
+.user {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: variables.$gray;
+
+    &__info {
+        display: flex;
+        padding-top: 20px;
+        flex-wrap: wrap;
+        flex: 0 0 33.3333%;
+        justify-content: space-between;
+        pad: 20px;
+
+        &--item, &--input {
+            width: 400px;
+        }
+    }
+
+    &__button {
+        margin-top: 20px;
+        width: 200px;
+    }
+}

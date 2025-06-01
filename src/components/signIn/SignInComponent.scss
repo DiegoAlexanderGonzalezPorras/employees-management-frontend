@@ -1,4 +1,4 @@
-@use '../../styles';
+@use '../../variables';
 
 .signIn {
     height: 100vh;
@@ -24,8 +24,8 @@
         gap: 30px;
 
         &__title, &__subtitle {
-            background-color: styles.$indigo;
-            color: styles.$white !important;
+            background-color: variables.$indigo;
+            color: variables.$white !important;
             text-align: center;
             margin: 0;
             padding: 5px;

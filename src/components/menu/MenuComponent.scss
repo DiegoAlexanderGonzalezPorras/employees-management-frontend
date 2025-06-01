@@ -1,4 +1,4 @@
-@use '../../styles';
+@use '../../variables';
 
 .header{
     display: flex;
@@ -6,7 +6,7 @@
     padding: 15px 15px 15px 15px;
     
     &__title {
-        color: styles.$indigo;
+        color: variables.$indigo;
     }
 
     &__user{
@@ -22,7 +22,7 @@
 
 .line {
     margin: 0;
-    background-color: styles.$gray;
+    background-color: variables.$gray;
     height: 2px;
 }
 
@@ -36,13 +36,13 @@
         flex-direction: column;
         gap: 20px;
         width: 320px;
-        color: styles.$white;
+        color: variables.$white;
         border-radius: 0;
-        background-color: styles.$indigo;
+        background-color: variables.$indigo;
     }
 
     &__outlet {
-        background-color: styles.$white;
+        background-color: variables.$white;
         padding: 20px;
         width: 100%;
     }

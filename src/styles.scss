@@ -1,10 +1,7 @@
-$indigo: #6610f2;
-$white: #ffffff;
-$gray: rgb(241, 241, 241);
-
+@use './variables';
 @use '/node_modules/bootstrap/scss/bootstrap' with (
     $theme-colors: (
-        "primary": $indigo
+        "primary": variables.$indigo
     )
 );
 
