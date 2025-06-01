@@ -1,6 +1,6 @@
-import type { UserFormModel } from "../models/UserFormsModel";
+import type { FormModel } from "../models/FormModel";
 
-export const USER_FORM: UserFormModel[] = [
+export const USER_FORM: FormModel[] = [
     {
         input: "Tipo de documento",
         type: "dropDown",

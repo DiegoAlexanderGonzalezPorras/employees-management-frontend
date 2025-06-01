@@ -1,0 +1,25 @@
+@use '../../variables';
+
+.record__state{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    &--Aprobado, &--Pendiente, &--Rechazo {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+    }
+
+    &--Aprobado {
+        background-color: var(--bs-green);
+    }
+
+    &--Pendiente {
+        background-color: var(--bs-yellow);
+    }
+
+    &--Rechazo {
+        background-color: var(--bs-red);
+    }
+}

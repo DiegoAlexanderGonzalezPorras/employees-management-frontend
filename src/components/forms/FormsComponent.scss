@@ -1,0 +1,7 @@
+@use '../../variables';
+
+.form {
+    &__item, &__input {
+        width: 400px;
+    }
+}
