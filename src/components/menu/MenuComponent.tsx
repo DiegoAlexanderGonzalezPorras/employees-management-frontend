@@ -17,15 +17,19 @@ const MenuComponent = (): ReactElement => {
         </div>
       </div>
 
-      <hr className="line"/>
+      <hr className="line" />
 
       <div className="progress">
         <div className="progress__menu">
-          {
-            MENU_ITEMS.map((item: MenuItemsModels) => (
-              <p className="h6" onClick={() => navigate(item.path)}>{item.name}</p>
-            ))
-          }
+          {MENU_ITEMS.map((item: MenuItemsModels) => (
+            <p
+              className="h6"
+              key={item.name}
+              onClick={() => navigate(item.path)}
+            >
+              {item.name}
+            </p>
+          ))}
         </div>
         <div className="progress__outlet">
           <Outlet />

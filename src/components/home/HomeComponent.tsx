@@ -12,7 +12,7 @@ const HomeComponent = (): ReactElement => {
 
       <div className="home">
         {HOME_ITEMS.map((item: HomeItemsModel) => (
-          <div className="home__item">
+          <div className="home__item" key={item.name}>
             <p className="h5 home__item--name">{item.name}</p>
             <p className="h6 home__item--description">{item.description}</p>
             <button className="btn btn-primary home__item--description" onClick={() => navigate(item.path)}>{item.button}</button>
