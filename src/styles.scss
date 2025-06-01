@@ -1,0 +1,10 @@
+@use '/node_modules/bootstrap/scss/bootstrap' with (
+    $theme-colors: (
+        "primary": #6610f2
+    )
+);
+
+body {
+    width: 100%;
+    margin: 0;
+}
