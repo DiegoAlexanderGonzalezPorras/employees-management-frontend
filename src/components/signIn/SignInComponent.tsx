@@ -1,12 +1,27 @@
-import type { ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import signInImage from "../../assets/signInImage.png";
 import "./SignInComponent.scss";
 import { useNavigate } from "react-router-dom";
+import type { AppDispatch } from "../../services/store";
+import { useDispatch } from "react-redux";
+import { createUserActions } from "../../services/store/user/user.reducer";
+import type { IUser } from "../../services/store/user/user.entity";
+import { RolEnum } from "../../enums/rolEnum";
 
 const SignInComponent = (): ReactElement => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   const onSignInButton = () => {
+    const userState: IUser = {
+      username: user,
+      rol: RolEnum.UnSignIn
+    }
+
+    userState.rol = userState.username === 'diegoGonzalez' ? RolEnum.Admin : RolEnum.User;
+
+    dispatch(createUserActions.setUser(userState))
     navigate("/home");
   }  
 
@@ -22,7 +37,7 @@ const SignInComponent = (): ReactElement => {
 
         <div>
           <p className="h6">Usuario</p>
-          <input className="form-control form-control-lg" type="text" />
+          <input onChange={(event) => setUser(event.target.value)} className="form-control form-control-lg" type="text" />
         </div>
 
         <div>
