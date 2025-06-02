@@ -1,0 +1,11 @@
+@use '../../variables';
+
+.access {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: variables.$gray;
+
+    &__info {
+        margin-top: 20px;
+    }
+}
