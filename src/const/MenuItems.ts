@@ -23,7 +23,7 @@ export const MENU_ITEMS: MenuItemsModels[] = [
     },
     {
         name: "Asignación de computadores",
-        path: "/computers-assing",
+        path: "/computers-assign",
         icon: ""
     }
 ]

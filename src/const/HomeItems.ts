@@ -16,7 +16,7 @@ export const HOME_ITEMS: HomeItemsModel[] = [
     {
         name: "Asignación de computadores",
         description: "Entrega un computador al nuevo acceso",
-        path: "/computers-assing",
+        path: "/computers-assign",
         button: "Asignar Equipo"
     }
 ]

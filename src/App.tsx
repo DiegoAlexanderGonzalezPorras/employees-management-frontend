@@ -7,6 +7,7 @@ import MenuComponent from './components/menu/MenuComponent'
 import UserCreateComponent from './components/userCreate/UserCreateComponent'
 import UserRecordComponent from './components/record/UserRecordComponent'
 import AccessRequestComponent from './components/accessRequest/AccessRequestComponent'
+import ComputersAssignComponent from './components/computers-assign/ComputersAssignComponent'
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter basename="/">
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/home" element={<HomeComponent/>} />
         <Route path="/user-create" element={<UserCreateComponent/>} />
         <Route path="/access-request" element={<AccessRequestComponent/>} />
+        <Route path="/computers-assign" element={<ComputersAssignComponent/>} />
         <Route path="/record" element={<UserRecordComponent/>} />
       </Route>
       <Route path="/*" element={<Navigate to="/sign-in" />} />
