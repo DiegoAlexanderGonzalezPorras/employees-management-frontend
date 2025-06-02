@@ -7,7 +7,7 @@ import MenuComponent from "./components/menu/MenuComponent";
 import UserCreateComponent from "./components/userCreate/UserCreateComponent";
 import UserRecordComponent from "./components/record/UserRecordComponent";
 import AccessRequestComponent from "./components/accessRequest/AccessRequestComponent";
-import ComputersAssignComponent from "./components/computers-assign/ComputersAssignComponent";
+import ComputersAssignComponent from "./components/computersAssign/ComputersAssignComponent";
 import { Provider } from "react-redux";
 import store from "./services/store";
 

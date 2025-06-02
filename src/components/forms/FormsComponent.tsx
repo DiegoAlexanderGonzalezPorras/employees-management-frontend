@@ -30,11 +30,14 @@ const FormsComponent = ({ formInfo }: { formInfo: FormModel[] }): ReactElement =
               <option value="" disabled selected>
                 {item.input}
               </option>
-              {item.options.map((option: string) => (
-                <option value={option} key={option}>
-                  {option}
-                </option>
-              ))}
+
+              {
+                item.options.map((option: string) => (
+                  <option value={option} key={option}>
+                    {option}
+                  </option>
+                ))
+              }
             </select>
           ) : (
             <input
