@@ -1,14 +1,20 @@
-import { type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import "./MenuComponent.scss";
 import { Outlet, useNavigate } from "react-router-dom";
 import { MENU_ITEMS } from "../../const/MenuItems";
 import type { MenuItemsModels } from "../../models/MenuItemsModel";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../services/store/user/user.select";
+import { RolEnum } from "../../enums/rolEnum";
 
 const MenuComponent = (): ReactElement => {
   const user = useSelector(userSelector);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user.rol === RolEnum.UnSignIn) 
+      navigate("/sign-in");
+  })
 
   return (
     <>
