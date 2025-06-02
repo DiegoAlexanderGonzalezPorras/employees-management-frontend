@@ -18,7 +18,7 @@ const UserCreateComponent = (): ReactElement => {
   const onSubmitButton = () => {
     createUserRequest(userCreateForm as UserRequestModel)
       .then(() => {
-        dispatch(createFormActions.setForm({}))
+        dispatch(createFormActions.emptyForm())
         alert("Solicitud enviada correctamente")
         navigate("/home");
       })

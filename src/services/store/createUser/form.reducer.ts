@@ -7,6 +7,9 @@ export const createFormState = createSlice({
     reducers: {
         setForm(state, {payload}: PayloadAction<object>) {
             Object.assign(state, payload);
+        },
+        emptyForm(){
+            return {};
         }
     }
 });
