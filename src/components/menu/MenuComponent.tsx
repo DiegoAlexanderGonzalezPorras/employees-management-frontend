@@ -1,10 +1,13 @@
-import type { ReactElement } from "react";
+import { type ReactElement } from "react";
 import "./MenuComponent.scss";
 import { Outlet, useNavigate } from "react-router-dom";
 import { MENU_ITEMS } from "../../const/MenuItems";
 import type { MenuItemsModels } from "../../models/MenuItemsModel";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../services/store/user/user.select";
 
 const MenuComponent = (): ReactElement => {
+  const user = useSelector(userSelector);
   const navigate = useNavigate();
 
   return (
@@ -12,8 +15,8 @@ const MenuComponent = (): ReactElement => {
       <div className="header">
         <p className="h1 header__title">Gestor De Equipos</p>
         <div className="header__user">
-          <p className="h6 header__user--name">Usuario</p>
-          <p className="h6 header__user--type">tipo de usuario</p>
+          <p className="h6 header__user--name">{user.username}</p>
+          <p className="h6 header__user--type">{user.rol}</p>
         </div>
       </div>
 
