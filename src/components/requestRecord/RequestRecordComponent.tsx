@@ -11,15 +11,15 @@ import { updateRequestState } from "../../services/requestState/RequestStateServ
 const RequestRecordComponent = (): ReactElement => {
   const recordOptions = {
     "user-request": {
-      titles: ["Numero de identificación", "Nombre", "Area", "Rol", "Estado"],
+      titles: ["Numero de identificación", "Nombre", "Area", "Rol"],
       values: ["identityNumber", "name", "area", "rol"]
     },
     "computer-assign-request":{ 
-      titles: ["Nombre", "Modelo", "Numero de serie", "Estado"],
+      titles: ["Nombre", "Modelo", "Numero de serie"],
       values: ["name", "model", "serialNumber"]
     },
     "access-request":{ 
-      titles: ["Nombre", "Accesos", "Estado"],
+      titles: ["Nombre", "Accesos"],
       values: ["name", "access"]
     }
   }
@@ -108,11 +108,8 @@ const RequestRecordComponent = (): ReactElement => {
                  <th scope="col" key={title}>{title}</th>
               ))
             }
-            {
-              userInfo.rol === 'Admin' ? (
-                <th scope="col">Acciones</th>
-              ) : (<></>)
-            }
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -127,12 +124,19 @@ const RequestRecordComponent = (): ReactElement => {
                 <td className="record__state"><div className={`record__state--${record.state}`}></div>{record.state}</td>
                 <td>
                   {
-                    record.state === "PENDIENTE" ? (
+                    ( record.state === "PENDIENTE" && userInfo.rol === 'Admin' ) ? (
                       <div className="record__action">
                         <img onClick={() => onActionButton(record, "APROBADO")} src={approve}/>
                         <img onClick={() => onActionButton(record, "RECHAZADO")} src={cancel}/>
                       </div>
-                      ) : (<></>)
+                    ) : (<></>)
+                  }
+                  {
+                    ( record.state === "PENDIENTE" ) ? (
+                      <div className="record__action">
+                        <img onClick={() => onActionButton(record, "CANCELADO")} src={cancel}/>
+                      </div>
+                    ) : (<></>)
                   }
                 </td>
               </tr>
