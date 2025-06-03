@@ -12,6 +12,10 @@ const RequestRecordComponent = (): ReactElement => {
     "computer-assign-request":{ 
       titles: ["Nombre", "Modelo", "Numero de serie", "Estado"],
       values: ["name", "model", "serialNumber"]
+    },
+    "access-request":{ 
+      titles: ["Nombre", "Accesos", "Estado"],
+      values: ["name", "access"]
     }
   }
 
