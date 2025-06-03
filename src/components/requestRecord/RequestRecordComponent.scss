@@ -1,0 +1,36 @@
+@use '../../variables';
+
+.record{
+    &__radioButton {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__state{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        
+        &--APROBADO, &--PENDIENTE, &--RECHAZADO, &--CANCELADO {
+            width: 15px;
+            height: 15px;
+            border-radius: 15px;
+        }
+
+        &--APROBADO {
+            background-color: var(--bs-green);
+        }
+
+        &--PENDIENTE {
+            background-color: var(--bs-yellow);
+        }
+
+        &--RECHAZADO {
+            background-color: var(--bs-red);
+        }
+
+        &--CANCELADO {
+            background-color: var(--bs-black);
+        }
+    }
+}
