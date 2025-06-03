@@ -6,6 +6,19 @@
         justify-content: space-between;
     }
 
+    &__action {
+        display: flex;
+        gap: 10px;
+        
+        &--approve {
+            height: 10px;
+        }
+
+        &--cancel {
+            height: 15px;
+        }
+    }
+
     &__state{
         display: flex;
         align-items: center;

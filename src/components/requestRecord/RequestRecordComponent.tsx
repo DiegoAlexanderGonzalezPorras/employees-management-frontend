@@ -1,7 +1,12 @@
 import { useEffect, useState, type ReactElement } from "react";
 import "./RequestRecordComponent.scss";
 import { getRequestRecord } from "../../services/requestRecord/RequestRecordService";
-import type { ComputerAssignRecordModel, UserRecordModel } from "../../models/RequestRecordModel";
+import type { RequestRecordModel } from "../../models/RequestRecordModel";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../services/store/user/user.select";
+import approve from '../../assets/approve.svg'
+import cancel from '../../assets/cancel.svg'
+import { updateRequestState } from "../../services/requestState/RequestStateService";
 
 const RequestRecordComponent = (): ReactElement => {
   const recordOptions = {
@@ -19,9 +24,11 @@ const RequestRecordComponent = (): ReactElement => {
     }
   }
 
+  const userInfo = useSelector(userSelector);
+
   const [ recordSelected, setRecordSelected ] = useState<string>("user-request");
   const [ recordTable, setRecordTable ] = useState(recordOptions["user-request"]);
-  const [ record, setRecord ] = useState<UserRecordModel[] | ComputerAssignRecordModel[]>([]);
+  const [ record, setRecord ] = useState<RequestRecordModel[]>([]);
 
   useEffect(() => {
     setRecordTable(recordOptions[recordSelected] || recordOptions["user-request"] )
@@ -33,6 +40,20 @@ const RequestRecordComponent = (): ReactElement => {
 
   const onRadioChanged = (option: string) => {
     setRecordSelected(option);
+  }
+
+  const onActionButton = (record: RequestRecordModel, action: string ) => {
+    const requestState = {
+      id: record.id,
+      state: action
+    }
+    updateRequestState(requestState)
+      .then(() => {
+        getRequestRecord(recordSelected)
+          .then((response) => {
+            setRecord(response);
+          })
+      })
   }
 
   return (
@@ -87,6 +108,11 @@ const RequestRecordComponent = (): ReactElement => {
                  <th scope="col" key={title}>{title}</th>
               ))
             }
+            {
+              userInfo.rol === 'Admin' ? (
+                <th scope="col">Acciones</th>
+              ) : (<></>)
+            }
           </tr>
         </thead>
         <tbody>
@@ -99,6 +125,16 @@ const RequestRecordComponent = (): ReactElement => {
                   ))
                 }
                 <td className="record__state"><div className={`record__state--${record.state}`}></div>{record.state}</td>
+                <td>
+                  {
+                    record.state === "PENDIENTE" ? (
+                      <div className="record__action">
+                        <img onClick={() => onActionButton(record, "APROBADO")} src={approve}/>
+                        <img onClick={() => onActionButton(record, "RECHAZADO")} src={cancel}/>
+                      </div>
+                      ) : (<></>)
+                  }
+                </td>
               </tr>
             ))
           }
