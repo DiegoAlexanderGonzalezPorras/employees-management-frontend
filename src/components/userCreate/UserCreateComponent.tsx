@@ -10,7 +10,7 @@ import { useSearchParams } from "react-router-dom";
 
 const UserCreateComponent = (): ReactElement => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams()[0];
 
   const userInit = {
     identityNumber: "",

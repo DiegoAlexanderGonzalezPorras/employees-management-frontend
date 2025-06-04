@@ -1,19 +1,23 @@
 import { useEffect, useState, type ReactElement } from "react";
 import "./AccessRequestComponent.scss";
 import { ACCESS_REQUEST } from "../../const/AccessRequest";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import type { AccessRequestModel } from "../../models/AccessRequestModel";
-import { sendAccessRequest } from "../../services/accessRequest/AcccessRequest";
+import { getAccessRequestByIdRequest, sendAccessRequest, updateAccessRequest } from "../../services/accessRequest/AcccessRequest";
 import { PathEnum } from "../../enums/PathEnum";
 
 const AccessRequestComponent = (): ReactElement => {
   const navigate = useNavigate();
+  const searchParams = useSearchParams()[0];
 
-  const [ disabledButton, setDisabledButton ] = useState(true);
-  const [ form, setForm ] = useState<AccessRequestModel>({
+  const formInit = {
     username: "",
     access: ""
-  })
+  }
+
+  const [ disabledButton, setDisabledButton ] = useState(true);
+  const [ form, setForm ] = useState<AccessRequestModel>(formInit);
+   const [ isCreateUser, setIsCreateUser ] = useState<boolean>(true);
   const [ access, setAccess ] = useState({
     "JIRA": false, 
     "GITHUB": false, 
@@ -21,6 +25,26 @@ const AccessRequestComponent = (): ReactElement => {
     "CONFLUENCE": false, 
     "GRAFANA": false
   })
+
+  useEffect(() => { 
+    const requestId = searchParams.get("id");
+
+    if (requestId) {
+      getAccessRequestByIdRequest(requestId)
+        .then((accessRequest: AccessRequestModel) => {
+          setForm(accessRequest)
+          setAccess(JSON.parse(accessRequest.access))
+          setIsCreateUser(false);
+        })
+        .catch(() => {
+          setForm(formInit)
+          setIsCreateUser(true)
+        })
+    } else {
+        setForm(formInit)
+        setIsCreateUser(true)
+    }
+  },[searchParams])
 
   useEffect(() => { 
     (form.username !== "" && ( access.JIRA || access.GITHUB || access.FIGMA || access.CONFLUENCE || access.GRAFANA )) 
@@ -47,12 +71,21 @@ const AccessRequestComponent = (): ReactElement => {
       access: JSON.stringify(access)
     }
 
-    sendAccessRequest(accessRequest)
-      .then(() => {
-        alert("Solicitud enviada correctamente")
-        navigate(PathEnum.User);
-      })
-      .catch(() => alert("La solicitud no fue correctamente enviada"))
+    if (isCreateUser) {
+      sendAccessRequest(accessRequest)
+        .then(() => {
+          alert("Solicitud enviada correctamente")
+          navigate(PathEnum.User);
+        })
+        .catch(() => alert("La solicitud no fue correctamente enviada"))
+      } else {
+        updateAccessRequest(accessRequest)
+          .then(() => {
+            alert("Solicitud enviada correctamente")
+            navigate(PathEnum.User);
+          })
+          .catch(() => alert("La solicitud no fue correctamente enviada"))
+      }
   }
 
   return (
@@ -65,21 +98,23 @@ const AccessRequestComponent = (): ReactElement => {
           <input 
             className="form-control form-control-lg form__input" 
             onChange={(event) => onChangedInput(event, "username")}
-            type="text" />
+            type="text"
+            value={form.username} />
         </div>
 
         <div className="access__info">
           <p className="h6">Solicitud de permisos</p>
           { 
-            ACCESS_REQUEST.map((access: string) => (
+            ACCESS_REQUEST.map((accessR: string) => (
               <div className="form-check">
                 <input 
                   className="form-check-input" 
-                  onChange={(event) => onAccessCheck(event, access)}
+                  onChange={(event) => onAccessCheck(event, accessR)}
                   type="checkbox" 
-                  value={access}/>
+                  value={accessR}
+                  checked={access[accessR]}/>
                 <label className="form-check-label">
-                  {access}
+                  {accessR}
                 </label>
               </div>
             ))
@@ -91,7 +126,9 @@ const AccessRequestComponent = (): ReactElement => {
           className="btn btn-primary user__button"
           onClick={ onSubmitButton }
           disabled={disabledButton}>
-          Enviar solicitud
+          {
+              isCreateUser ? "Enviar Solicitud" : "Actualizar Solicitud"
+          }
         </button>
       </div>
     </>
