@@ -10,22 +10,24 @@ import edit from '../../assets/edit.svg'
 import { updateRequestState } from "../../services/requestState/RequestStateService";
 import { RECORD_OPTIONS } from "../../const/RecordOptions";
 import { useNavigate } from "react-router-dom";
+import FiltersComponent from "./filters/FiltersComponent";
 
 const RequestRecordComponent = (): ReactElement => {
   const userInfo = useSelector(userSelector);
   const navigate = useNavigate();
 
+  const [ filter, setFilter ] = useState("");
   const [ recordSelected, setRecordSelected ] = useState<string>("user-request");
   const [ recordTable, setRecordTable ] = useState(RECORD_OPTIONS["user-request"]);
   const [ record, setRecord ] = useState<RequestRecordModel[]>([]);
 
   useEffect(() => {
     setRecordTable(RECORD_OPTIONS[recordSelected] || RECORD_OPTIONS["user-request"] )
-    getRequestRecord(recordSelected)
+    getRequestRecord(recordSelected, filter)
       .then((response) => {
         setRecord(response);
       })
-  }, [recordSelected])
+  }, [recordSelected, filter])
 
   const onRadioChanged = (option: string) => {
     setRecordSelected(option);
@@ -38,7 +40,7 @@ const RequestRecordComponent = (): ReactElement => {
     }
     updateRequestState(requestState)
       .then(() => {
-        getRequestRecord(recordSelected)
+        getRequestRecord(recordSelected, filter)
           .then((response) => {
             setRecord(response);
           })
@@ -91,8 +93,9 @@ const RequestRecordComponent = (): ReactElement => {
           </label>
         </div>
       </div>
-      
 
+      <FiltersComponent setFilter={setFilter}/>
+      
       <table className="table table-striped">
         <thead>
           <tr>
