@@ -8,7 +8,11 @@
     &__info {
         display: flex;
         flex-direction: column;
-        pad: 20px;
+        gap: 20px;
+
+        &--item, &--input {
+            width: 400px;
+        }
     }
 
     &__button {

@@ -63,18 +63,18 @@ const ComputersAssignComponent = (): ReactElement => {
       <div className="assign">
         <div className="assign__info">
 
-          <div className="form__item">
+          <div className="assign__info--item">
             <p className="h6">Nombre</p>
             <input
-              className="form-control form-control-lg form__input"
+              className="form-control form-control-lg assign__info--input"
               type="text"
               onChange={(event) => onChangedInput(event, "name")}/>
           </div>
 
-          <div className="form__item">
+          <div className="assign__info--item">
             <p className="h6">Modelo</p>
             <select
-              className="btn btn-secondary dropdown-toggle form__input"
+              className="btn btn-secondary dropdown-toggle assign__info--input"
               onChange={(event) => onChangedInput(event, "model")}>
 
               <option value="" disabled selected>Modelo</option>
@@ -89,10 +89,10 @@ const ComputersAssignComponent = (): ReactElement => {
             </select>
           </div>
 
-          <div className="form__item">
+          <div className="assign__info--item">
             <p className="h6">Número Serial</p>
             <select
-              className="btn btn-secondary dropdown-toggle form__input"
+              className="btn btn-secondary dropdown-toggle assign__info--input"
               onChange={(event) => onChangedInput(event, "idComputer")}>
 
               <option value="" disabled selected>Número Serial</option>
