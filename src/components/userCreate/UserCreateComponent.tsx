@@ -21,6 +21,7 @@ const UserCreateComponent = (): ReactElement => {
     rol: ""
   };
 
+  const [ disabledButton, setDisabledButton ] = useState(true);
   const [ user, setUser ] = useState<UserRequestModel>(userInit);
   const [ isCreateUser, setIsCreateUser ] = useState<boolean>(true);
   
@@ -40,6 +41,16 @@ const UserCreateComponent = (): ReactElement => {
         setIsCreateUser(true)
       }
   },[searchParams])
+
+  useEffect(() => { 
+    ( user.identityNumber !== "" && 
+      user.identityType !== "" && 
+      user.email !== "" && 
+      user.name !== "" && 
+      user.area !== "" && 
+      user.rol !== "") 
+      ? setDisabledButton(false) : setDisabledButton(true); 
+  },[user])
 
   const onChangedInput = (event: any, state: string) => {
     setUser({ 
@@ -106,7 +117,8 @@ const UserCreateComponent = (): ReactElement => {
         <button
           type="button"
           className="btn btn-primary user__button"
-          onClick={onSubmitButton}>
+          onClick={onSubmitButton}
+          disabled={disabledButton}>
             {
               isCreateUser ? "Crear usuario" : "Actualizar Usuario"
             }
