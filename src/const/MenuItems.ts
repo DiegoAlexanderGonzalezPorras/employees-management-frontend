@@ -1,29 +1,30 @@
+import { PathEnum } from "../enums/PathEnum";
 import type { MenuItemsModels } from "../models/MenuItemsModel";
 
 export const MENU_ITEMS: MenuItemsModels[] = [
     {
         name: "Inicio",
-        path: "/home",
+        path: PathEnum.Home,
         icon: ""
     },
     {
         name: "Historial",
-        path: "/record",
+        path: PathEnum.Record,
         icon: ""
     },
     {
         name: "Creación de usuario",
-        path: "/user-create",
+        path: PathEnum.User,
         icon: ""
     },
     {
         name: "Solicitud de accesos",
-        path: "/access-request",
+        path: PathEnum.Access,
         icon: ""
     },
     {
         name: "Asignación de computadores",
-        path: "/computers-assign",
+        path: PathEnum.Computer,
         icon: ""
     }
 ]

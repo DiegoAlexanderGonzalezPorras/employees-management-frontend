@@ -4,6 +4,7 @@ import { getComputersModels, getComputersSerialNumber } from "../../services/com
 import type { ComputerAssignRequestModel } from "../../models/ComputerAssignRequestModel";
 import { sendComputersAssignRequest } from "../../services/computersAssignRequest/ComputersAssignRequestService";
 import { useNavigate } from "react-router-dom";
+import { PathEnum } from "../../enums/PathEnum";
 
 const ComputersAssignComponent = (): ReactElement => {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const ComputersAssignComponent = (): ReactElement => {
     sendComputersAssignRequest(form)
       .then(() => {
         alert("Solicitud enviada correctamente")
-        navigate("/home");
+        navigate(PathEnum.User);
       })
       .catch(() => alert("La solicitud no fue correctamente enviada"))
   }

@@ -4,6 +4,7 @@ import { ACCESS_REQUEST } from "../../const/AccessRequest";
 import { useNavigate } from "react-router-dom";
 import type { AccessRequestModel } from "../../models/AccessRequestModel";
 import { sendAccessRequest } from "../../services/accessRequest/AcccessRequest";
+import { PathEnum } from "../../enums/PathEnum";
 
 const AccessRequestComponent = (): ReactElement => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const AccessRequestComponent = (): ReactElement => {
     sendAccessRequest(accessRequest)
       .then(() => {
         alert("Solicitud enviada correctamente")
-        navigate("/home");
+        navigate(PathEnum.User);
       })
       .catch(() => alert("La solicitud no fue correctamente enviada"))
   }

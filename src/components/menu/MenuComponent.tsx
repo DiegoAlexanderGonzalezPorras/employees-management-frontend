@@ -6,6 +6,7 @@ import type { MenuItemsModels } from "../../models/MenuItemsModel";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../services/store/user/user.select";
 import { RolEnum } from "../../enums/rolEnum";
+import { PathEnum } from "../../enums/PathEnum";
 
 const MenuComponent = (): ReactElement => {
   const user = useSelector(userSelector);
@@ -13,7 +14,7 @@ const MenuComponent = (): ReactElement => {
 
   useEffect(() => {
     if (user.rol === RolEnum.UnSignIn) 
-      navigate("/sign-in");
+      navigate(PathEnum.SignIn);
   })
 
   return (

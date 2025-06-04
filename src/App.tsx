@@ -10,20 +10,24 @@ import AccessRequestComponent from "./components/accessRequest/AccessRequestComp
 import ComputersAssignComponent from "./components/computersAssign/ComputersAssignComponent";
 import { Provider } from "react-redux";
 import store from "./services/store";
+import { PathEnum } from "./enums/PathEnum";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter basename="/">
     <Provider store={store}>
       <Routes>
-        <Route path="/sign-in" element={<SignInComponent />} />
+        <Route path={ PathEnum.SignIn } element={<SignInComponent />} />
         <Route element={<MenuComponent />}>
-          <Route path="/home" element={<HomeComponent />} />
-          <Route path="/user-create" element={<UserCreateComponent />} />
-          <Route path="/access-request" element={<AccessRequestComponent />} />
-          <Route path="/computers-assign" element={<ComputersAssignComponent />} />
-          <Route path="/record" element={<RequestRecordComponent />} />
+
+          <Route path={ PathEnum.Home } element={<HomeComponent />} />
+
+          <Route path={ PathEnum.User } element={<UserCreateComponent />} />
+
+          <Route path={ PathEnum.Access } element={<AccessRequestComponent />} />
+          <Route path={ PathEnum.Computer } element={<ComputersAssignComponent />} />
+          <Route path={ PathEnum.Record } element={<RequestRecordComponent />} />
         </Route>
-        <Route path="/*" element={<Navigate to="/sign-in" />} />
+        <Route path="/*" element={<Navigate to={ PathEnum.SignIn } />} />
       </Routes>
     </Provider>
   </BrowserRouter>

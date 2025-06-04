@@ -9,6 +9,7 @@ import type { UserRequestModel } from "../../models/userRequestModel";
 import { useNavigate } from "react-router-dom";
 import type { AppDispatch } from "../../services/store";
 import { createFormActions } from "../../services/store/createUser/form.reducer";
+import { PathEnum } from "../../enums/PathEnum";
 
 const UserCreateComponent = (): ReactElement => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const UserCreateComponent = (): ReactElement => {
       .then(() => {
         dispatch(createFormActions.emptyForm())
         alert("Solicitud enviada correctamente")
-        navigate("/home");
+        navigate(PathEnum.User);
       })
       .catch(() => alert("La solicitud no fue correctamente enviada"))
   }

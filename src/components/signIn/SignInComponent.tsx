@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { createUserActions } from "../../services/store/user/user.reducer";
 import type { IUser } from "../../services/store/user/user.entity";
 import { RolEnum } from "../../enums/rolEnum";
+import { PathEnum } from "../../enums/PathEnum";
 
 const SignInComponent = (): ReactElement => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,7 +23,7 @@ const SignInComponent = (): ReactElement => {
     userState.rol = userState.username === 'diegoGonzalez' ? RolEnum.Admin : RolEnum.User;
 
     dispatch(createUserActions.setUser(userState))
-    navigate("/home");
+    navigate(PathEnum.Home);
   }  
 
   return (
