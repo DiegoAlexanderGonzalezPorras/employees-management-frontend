@@ -51,7 +51,7 @@ const ComputersAssignComponent = (): ReactElement => {
     sendComputersAssignRequest(form)
       .then(() => {
         alert("Solicitud enviada correctamente")
-        navigate(PathEnum.User);
+        navigate(PathEnum.Home);
       })
       .catch(() => alert("La solicitud no fue correctamente enviada"))
   }

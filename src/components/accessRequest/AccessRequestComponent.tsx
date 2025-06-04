@@ -75,14 +75,14 @@ const AccessRequestComponent = (): ReactElement => {
       sendAccessRequest(accessRequest)
         .then(() => {
           alert("Solicitud enviada correctamente")
-          navigate(PathEnum.User);
+          navigate(PathEnum.Home);
         })
         .catch(() => alert("La solicitud no fue correctamente enviada"))
       } else {
         updateAccessRequest(accessRequest)
           .then(() => {
             alert("Solicitud enviada correctamente")
-            navigate(PathEnum.User);
+            navigate(PathEnum.Home);
           })
           .catch(() => alert("La solicitud no fue correctamente enviada"))
       }

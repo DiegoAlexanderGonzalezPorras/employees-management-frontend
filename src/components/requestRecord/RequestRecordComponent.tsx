@@ -51,7 +51,7 @@ const RequestRecordComponent = (): ReactElement => {
 
   return (
     <>
-      <p className="h3">Historial de creaciones de usuario</p>
+      <p className="h3">Historial de solicitudes</p>
 
       <div className="record__radioButton">
         <div className="form-check">

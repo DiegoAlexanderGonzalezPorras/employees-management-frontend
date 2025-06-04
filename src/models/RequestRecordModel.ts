@@ -2,6 +2,7 @@ export type RequestRecordModel = UserRecordModel | ComputerAssignRecordModel | A
 
 export interface UserRecordModel {
     id: number;
+    date: string;
     identityNumber: string;
     name: string;
     area: string;
@@ -11,6 +12,7 @@ export interface UserRecordModel {
 
 export interface ComputerAssignRecordModel {
     id: number;
+    date: string;
     name: string;
     model: string;
     serialNumber: string;
@@ -19,6 +21,7 @@ export interface ComputerAssignRecordModel {
 
 export interface AccessRequestRecordModel {
     id: number;
+    date: string;
     name: string;
     access: string;
     state: string;
