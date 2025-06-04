@@ -1,22 +1,45 @@
-import { useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import "./UserCreateComponent.scss";
 import { USER_FORM } from "../../const/UserForm";
-import { createUserRequest } from "../../services/userCreate/UserRequestService";
-import type { UserRequestModel } from "../../models/userRequestModel";
+import { createUserRequest, getUserRequestByIdRequest, updateUserRequest } from "../../services/userCreate/UserRequestService";
+import type { UserRequestModel } from "../../models/UserRequestModel";
 import { useNavigate } from "react-router-dom";
 import { PathEnum } from "../../enums/PathEnum";
 import type { FormModel } from "../../models/FormModel";
+import { useSearchParams } from "react-router-dom";
 
 const UserCreateComponent = (): ReactElement => {
   const navigate = useNavigate();
-  const [ user, setUser ] = useState<UserRequestModel>({
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const userInit = {
     identityNumber: "",
     identityType: "",
     name: "",
     email: "",
     area: "",
     rol: ""
-  });
+  };
+
+  const [ user, setUser ] = useState<UserRequestModel>(userInit);
+  const [ isCreateUser, setIsCreateUser ] = useState<boolean>(true);
+  
+  useEffect(() => {
+    if (searchParams.get("id")) {
+      getUserRequestByIdRequest(searchParams.get("id"))
+        .then((userRequest: UserRequestModel) => {
+          setUser(userRequest)
+          setIsCreateUser(false);
+        })
+        .catch(() => {
+          setUser(userInit)
+          setIsCreateUser(true)
+        })
+      } else {
+        setUser(userInit)
+        setIsCreateUser(true)
+      }
+  },[searchParams])
 
   const onChangedInput = (event: any, state: string) => {
     setUser({ 
@@ -26,12 +49,21 @@ const UserCreateComponent = (): ReactElement => {
   }
 
   const onSubmitButton = () => {
-    createUserRequest(user)
-      .then(() => {
-        alert("Solicitud enviada correctamente");
-        navigate(PathEnum.User);
-      })
-      .catch(() => alert("La solicitud no fue correctamente enviada"));
+    if (isCreateUser) {
+      createUserRequest(user)
+        .then(() => {
+          alert("Solicitud enviada correctamente");
+          navigate(PathEnum.Home);
+        })
+        .catch(() => alert("La solicitud no fue correctamente enviada"));
+    } else {
+      updateUserRequest(user)
+        .then(() => {
+          alert("Solicitud enviada correctamente");
+          navigate(PathEnum.Home);
+        })
+        .catch(() => alert("La solicitud no fue correctamente enviada"));
+    }
   };
 
   return (
@@ -49,7 +81,7 @@ const UserCreateComponent = (): ReactElement => {
                 <select
                   className="btn btn-secondary dropdown-toggle user__info--input"
                   onChange={(event) => onChangedInput(event, item.state)}
-                >
+                  value={user[item.state]}>
                   <option value="" disabled selected>
                     {item.input}
                   </option>
@@ -65,7 +97,7 @@ const UserCreateComponent = (): ReactElement => {
                   className="form-control form-control-lg"
                   type={item.type}
                   onChange={(event) => onChangedInput(event, item.state)}
-                />
+                  value={user[item.state]}/>
               )}
             </div>
           ))}
@@ -75,7 +107,9 @@ const UserCreateComponent = (): ReactElement => {
           type="button"
           className="btn btn-primary user__button"
           onClick={onSubmitButton}>
-          Crear usuario
+            {
+              isCreateUser ? "Crear usuario" : "Actualizar Usuario"
+            }
         </button>
       </div>
     </>

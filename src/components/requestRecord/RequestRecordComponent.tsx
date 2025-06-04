@@ -6,32 +6,21 @@ import { useSelector } from "react-redux";
 import { userSelector } from "../../services/store/user/user.select";
 import approve from '../../assets/approve.svg'
 import cancel from '../../assets/cancel.svg'
+import edit from '../../assets/edit.svg'
 import { updateRequestState } from "../../services/requestState/RequestStateService";
+import { RECORD_OPTIONS } from "../../const/RecordOptions";
+import { useNavigate } from "react-router-dom";
 
 const RequestRecordComponent = (): ReactElement => {
-  const recordOptions = {
-    "user-request": {
-      titles: ["Numero de identificación", "Nombre", "Area", "Rol"],
-      values: ["identityNumber", "name", "area", "rol"]
-    },
-    "computer-assign-request":{ 
-      titles: ["Nombre", "Modelo", "Numero de serie"],
-      values: ["name", "model", "serialNumber"]
-    },
-    "access-request":{ 
-      titles: ["Nombre", "Accesos"],
-      values: ["name", "access"]
-    }
-  }
-
   const userInfo = useSelector(userSelector);
+  const navigate = useNavigate();
 
   const [ recordSelected, setRecordSelected ] = useState<string>("user-request");
-  const [ recordTable, setRecordTable ] = useState(recordOptions["user-request"]);
+  const [ recordTable, setRecordTable ] = useState(RECORD_OPTIONS["user-request"]);
   const [ record, setRecord ] = useState<RequestRecordModel[]>([]);
 
   useEffect(() => {
-    setRecordTable(recordOptions[recordSelected] || recordOptions["user-request"] )
+    setRecordTable(RECORD_OPTIONS[recordSelected] || RECORD_OPTIONS["user-request"] )
     getRequestRecord(recordSelected)
       .then((response) => {
         setRecord(response);
@@ -54,6 +43,10 @@ const RequestRecordComponent = (): ReactElement => {
             setRecord(response);
           })
       })
+  }
+
+  const onEditButton = (record: RequestRecordModel ) => {
+    navigate(`${RECORD_OPTIONS[recordSelected].editPath}?id=${record.id}`)
   }
 
   return (
@@ -130,10 +123,11 @@ const RequestRecordComponent = (): ReactElement => {
                         <img onClick={() => onActionButton(record, "RECHAZADO")} src={cancel}/>
                       </div>
                     ) : (<></>)
-                  }
+                  } 
                   {
-                    ( record.state === "PENDIENTE" ) ? (
+                    ( record.state === "PENDIENTE" && userInfo.rol !== 'Admin' ) ? (
                       <div className="record__action">
+                        <img onClick={() => onEditButton(record)} src={edit}/>
                         <img onClick={() => onActionButton(record, "CANCELADO")} src={cancel}/>
                       </div>
                     ) : (<></>)
